@@ -23,20 +23,19 @@ public class SoundSettingController
     #region Get
 
     [HttpGet("{id}")]  //이 부분은 요청할때  서버주소/SoundSetting/1이런식으로 요청해야함
-    public object GetSoundSetting(string id)
+    public string GetSoundSetting(string id)
     {
         var findSoundSetting = _context.SoundSettings.Where(item => item.UserId == id).FirstOrDefault();
 
         if (findSoundSetting == null)
         {
             BaseResponse response = new BaseResponse(){code = 0, message = "사운드 설정이 없습니다."};
-            return response;
+            return LitJson.JsonMapper.ToJson(response);
         }
         else
         {
             GetSoundSettingByIdDTO response = new GetSoundSettingByIdDTO(){code = 1, message = "사운드 조회 성공.", soundSetting = findSoundSetting};
-            //return response;
-            return findSoundSetting;
+            return LitJson.JsonMapper.ToJson(response);
         }
     }
 
@@ -45,7 +44,7 @@ public class SoundSettingController
     #region Put
 
     [HttpPut]
-    public BaseResponse UpdateSoundSetting([FromBody] SoundSetting soundSetting)
+    public string UpdateSoundSetting([FromBody] SoundSetting soundSetting)
     {
         var findSoundSetting = _context.SoundSettings.Where(item => item.UserId == soundSetting.UserId).FirstOrDefault();
 
@@ -55,7 +54,7 @@ public class SoundSettingController
             _context.SaveChanges();
             
             BaseResponse response = new BaseResponse(){code = 1, message = "사운드 설정 새로 등록 성공"};
-            return response;
+            return LitJson.JsonMapper.ToJson(response);
         }
         else
         {
@@ -66,7 +65,7 @@ public class SoundSettingController
             _context.SaveChanges();
             
             BaseResponse response = new BaseResponse(){code = 1, message = "사운드 설정 업데이트 성공"};
-            return response;
+            return LitJson.JsonMapper.ToJson(response);
         }
     }
 
