@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SharedData.Models;
 using WebApiServer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
