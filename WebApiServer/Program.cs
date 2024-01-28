@@ -29,6 +29,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else //배포할때는 이거 지우기
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 //app.UseHttpsRedirection();
 
